@@ -6,10 +6,10 @@
 
 #define EASY_CONUT 10
 
-#define ROW 20
-#define COL 20
-#define ROWS 22
-#define COLS 22
+#define ROW 9
+#define COL 9
+#define ROWS 11
+#define COLS 11
 
 //≥ı ºªØ∆Â≈Ã
 void Initboard(char board[ROWS][COLS], int rows, int cols, char set);
