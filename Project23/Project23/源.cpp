@@ -2,20 +2,21 @@
 #include<stdio.h>
 #include<string>
 #include<assert.h>
-int my_strlen(const char* arr)
-{
-	assert(*arr != NULL);
-	int count = 0;
-	while (*(arr++) != '\0')
-	{
-		count++;
-	}
-	return count;
-}
 int main()
 {
-	const char arr[] = "abcdadas";
-	const int ret = my_strlen(arr);
-	printf("%d", ret);
+	int a = 0;
+	int b = 0;
+	scanf("%d %d", &a, &b);
+	int c = a ^ b;
+	int i = 0;
+	int count = 0;
+	for (i = 0; i < 32; i++)
+	{
+		if ((c >> &1) == 1)
+		{
+			count++;
+		}
+	}
+	printf("%d", count);
 	return 0;
 }
