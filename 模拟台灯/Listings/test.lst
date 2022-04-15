@@ -1,0 +1,70 @@
+C51 COMPILER V9.59.0.0   TEST                                                              04/15/2022 14:34:38 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TEST
+OBJECT MODULE PLACED IN .\Objects\test.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE test.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\test
+                    -.lst) TABS(2) OBJECT(.\Objects\test.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h>
+   3          
+   4          sbit light_up=P3^1;
+   5          sbit light_down=P3^0;
+   6          sbit light=P2^0;
+   7          
+   8          void delay(unsigned int k);//ÑÓÊ±º¯Êý
+   9          
+  10          
+  11          void main()
+  12          {
+  13   1         int i = 0;
+  14   1         int j = 500;
+  15   1         while(1)
+  16   1         {
+  17   2            light=0;
+  18   2            delay(i);
+  19   2            light=1;
+  20   2            delay(j);
+  21   2            if(light_up==0)
+  22   2            {
+  23   3               j--;i++;
+  24   3               if(j==0)
+  25   3               {
+  26   4                  j=500;i=0;
+  27   4               }
+  28   3            }
+  29   2            if(light_down==0)
+  30   2            {
+  31   3               j++;i--;
+  32   3               if(i==0)
+  33   3               {
+  34   4                  i=500;j=0;
+  35   4               }
+  36   3            }
+  37   2         }
+  38   1      }
+  39          
+  40          void delay(unsigned int k)
+  41          {
+  42   1         unsigned int n = 0;
+  43   1         for(n=0;n<k;n++);
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    119    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.59.0.0   TEST                                                              04/15/2022 14:34:38 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
