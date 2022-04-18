@@ -1,0 +1,129 @@
+C51 COMPILER V9.59.0.0   TEST                                                              04/18/2022 23:51:45 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TEST
+OBJECT MODULE PLACED IN .\Objects\test.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE test.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\test
+                    -.lst) TABS(2) OBJECT(.\Objects\test.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          
+   3          sbit rw=P2^5;
+   4          sbit rs=P2^6;
+   5          sbit en=P2^7;
+   6          
+   7          
+   8          #define uchar unsigned char
+   9          #define uint  unsigned int
+  10            
+  11          void delay(uint i);//延时函数
+  12          void zhiling(uchar num);//指令函数
+  13          void shuju(uchar date);//数据函数
+  14          void init();//初始化
+  15          void show1(char* str1);//1行显示
+  16          void show2(char* str2);//2行显示
+  17          
+  18          void main()
+  19          {
+  20   1         int k = 0;
+  21   1         init();
+  22   1         show1("I Like YOU");
+  23   1         show2("Qi Jin Bo");
+  24   1         
+  25   1         for(k=0;k<16;k++)
+  26   1        {
+  27   2           zhiling(0x18);
+  28   2           delay(400);
+  29   2        }
+  30   1        while(1);
+  31   1      }
+  32          
+  33          
+  34          
+  35          //延时函数
+  36          void delay(uint i)
+  37          {
+  38   1         uint x,y;
+  39   1         for(x=i;x>0;x--)
+  40   1        {
+  41   2          for(y=110;y>0;y--);
+  42   2        }
+  43   1      }
+  44          
+  45          //指令函数
+  46          void zhiling(uchar num)
+  47          {
+  48   1         rw=0;
+  49   1         rs=0;
+  50   1         en=0;
+  51   1         P0=num;
+  52   1         delay(5);
+  53   1         en=1;
+  54   1         delay(5);
+C51 COMPILER V9.59.0.0   TEST                                                              04/18/2022 23:51:45 PAGE 2   
+
+  55   1         en=0;
+  56   1      }
+  57          
+  58          //数据函数
+  59          void shuju(uchar date)
+  60          {
+  61   1         rs=1;
+  62   1         rw=0;
+  63   1         en=0;
+  64   1         P0=date;
+  65   1         delay(5);
+  66   1         en=1;
+  67   1         delay(5);
+  68   1         en=0;
+  69   1      }
+  70          
+  71          //初始化函数
+  72          void init()
+  73          {
+  74   1         zhiling(0x38);
+  75   1         zhiling(0x0f);
+  76   1         zhiling(0x06);
+  77   1         zhiling(0x01);
+  78   1      }
+  79          
+  80          //显示
+  81          void show1(char* str1)
+  82          {
+  83   1         zhiling(0x80+0x10);
+  84   1         while(*str1!='\0')
+  85   1         {
+  86   2            
+  87   2            shuju(*str1);
+  88   2            delay(5);
+  89   2            str1++;
+  90   2         }
+  91   1         
+  92   1      }
+  93          //2行显示
+  94          void show2(char* str2)
+  95          {
+  96   1         zhiling(0x80+0x50);
+  97   1         while(*str2!='\0')
+  98   1         {
+  99   2            shuju(*str2);
+ 100   2            delay(5);
+ 101   2            str2++;
+ 102   2         }
+ 103   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    205    ----
+   CONSTANT SIZE    =     21    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
