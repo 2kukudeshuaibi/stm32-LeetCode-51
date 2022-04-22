@@ -1,0 +1,108 @@
+C51 COMPILER V9.59.0.0   TEST                                                              04/22/2022 18:31:50 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TEST
+OBJECT MODULE PLACED IN .\Objects\test.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE test.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\test
+                    -.lst) OBJECT(.\Objects\test.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "lcd1602.h"
+   3          #include "ds1302.h"
+   4          
+   5          uchar DS1302_time[]={0,32,18,22,4,5,22};
+   6          void DS1302_Settime();//设置时间
+   7          void DS1302_readtime();//读时间
+   8          uchar miao;
+   9          uchar fen=0;
+  10          uchar shi=0;
+  11          uchar bcd1=0;
+  12          uchar bcd2=0;
+  13          uchar bcd3=0;
+  14          
+  15          void delay(unsigned int i)
+  16          {
+  17   1         unsigned int k;
+  18   1         for(k=0;k<i;k++);
+  19   1      }
+  20          void init()
+  21          {
+  22   1         LCD_Init();
+  23   1         LCD_showstring(1,4,"2022-04-22");
+  24   1         LCD_showstring(2,5,"00-00-00");
+  25   1      }
+  26          void main()
+  27          {
+  28   1         init();
+  29   1         DS1302_init();
+  30   1         DS1302_Settime();
+  31   1         while(1)
+  32   1         {
+  33   2            DS1302_readtime();
+  34   2            LCD_shownum(2,11,DS1302_time[0],2);
+  35   2            LCD_shownum(2,8,DS1302_time[1],2);
+  36   2            LCD_shownum(2,5,DS1302_time[2],2);
+  37   2            LCD_shownum(1,12,DS1302_time[3],2); 
+  38   2            LCD_shownum(1,9,DS1302_time[4],2);
+  39   2            LCD_shownum(1,16,DS1302_time[5],1);
+  40   2            LCD_shownum(1,6,DS1302_time[6],2);
+  41   2         }
+  42   1      }
+  43          
+  44          
+  45          
+  46          void DS1302_Settime()
+  47          {
+  48   1          DS1302_WriteByte(0x8e,0x00);
+  49   1          DS1302_WriteByte(0x80,DS1302_time[0]/10*16+DS1302_time[0]%10);//秒
+  50   1          DS1302_WriteByte(0x82,DS1302_time[1]/10*16+DS1302_time[1]%10);//分
+  51   1          DS1302_WriteByte(0x84,DS1302_time[2]/10*16+DS1302_time[2]%10);//时
+  52   1          DS1302_WriteByte(0x86,DS1302_time[3]/10*16+DS1302_time[3]%10);//天
+  53   1          DS1302_WriteByte(0x88,DS1302_time[4]/10*16+DS1302_time[4]%10);//月
+  54   1          DS1302_WriteByte(0x8a,DS1302_time[5]/10*16+DS1302_time[5]%10);//周
+C51 COMPILER V9.59.0.0   TEST                                                              04/22/2022 18:31:50 PAGE 2   
+
+  55   1          DS1302_WriteByte(0x8c,DS1302_time[6]/10*16+DS1302_time[6]%10);//年
+  56   1          DS1302_WriteByte(0x8e,0x80);
+  57   1      }
+  58          
+  59          void DS1302_readtime()
+  60          {
+  61   1         unsigned char tmp;
+  62   1         tmp=DS1302_ReadByte(0x81);
+  63   1         DS1302_time[0]=tmp/16*10+tmp%16;//秒
+  64   1         
+  65   1         tmp=DS1302_ReadByte(0x83);
+  66   1         DS1302_time[1]=tmp/16*10+tmp%16;//分
+  67   1      
+  68   1         tmp=DS1302_ReadByte(0x85);
+  69   1         DS1302_time[2]=tmp/16*10+tmp%16;//时
+  70   1      
+  71   1         tmp=DS1302_ReadByte(0x87);
+  72   1         DS1302_time[3]=tmp/16*10+tmp%16;//天
+  73   1         
+  74   1         tmp=DS1302_ReadByte(0x89);
+  75   1         DS1302_time[4]=tmp/16*10+tmp%16;//月
+  76   1        
+  77   1         tmp=DS1302_ReadByte(0x8b);
+  78   1         DS1302_time[5]=tmp/16*10+tmp%16;//周
+  79   1      
+  80   1         tmp=DS1302_ReadByte(0x8d);
+  81   1         DS1302_time[6]=tmp/16*10+tmp%16;//年
+  82   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    496    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     13    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
