@@ -1,0 +1,94 @@
+C51 COMPILER V9.59.0.0   KEYSCAN                                                           04/23/2022 18:12:08 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE KEYSCAN
+OBJECT MODULE PLACED IN .\Objects\keyscan.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE keyscan.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\k
+                    -eyscan.lst) OBJECT(.\Objects\keyscan.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "keyscan.h"
+   3          
+   4          
+   5          
+   6          void delay(uint i)
+   7          {
+   8   1         uint k;
+   9   1         for(k=0;k<i;k++);
+  10   1      }
+  11          
+  12          uchar keyscan()
+  13          {
+  14   1         uchar tmp;
+  15   1         uchar key=0;
+  16   1         P1=0x7f;//检测第一行
+  17   1         tmp=P1;
+  18   1         tmp=tmp&0x0f;
+  19   1         if(tmp!=0x0f)
+  20   1         {
+  21   2            delay(500);
+  22   2            if(tmp!=0x0f)
+  23   2            {
+  24   3               switch(tmp)
+  25   3               {
+  26   4                 case 0x07:key=1;break;
+  27   4                 case 0x0b:key=2;break;
+  28   4                 case 0x0d:key=3;break;
+  29   4                 case 0x0e:key=4;break;
+  30   4               }
+  31   3            }
+  32   2         }
+  33   1         while(P1!=0x7f);
+  34   1         P1=0xbf;//检测第二行
+  35   1         tmp=P1;
+  36   1         tmp=tmp&0x0f;
+  37   1         if(tmp!=0x0f)
+  38   1         {
+  39   2            delay(500);
+  40   2            if(tmp!=0x0f)
+  41   2            {
+  42   3               switch(tmp)
+  43   3               {
+  44   4                 case 0x07:key=5;break;
+  45   4                 case 0x0b:key=6;break;
+  46   4                 case 0x0d:key=7;break;
+  47   4                 case 0x0e:key=8;break;
+  48   4               }
+  49   3            }
+  50   2         }
+  51   1         while(P1!=0xbf);
+  52   1         P1=0xdf;//检测三行
+  53   1         tmp=P1;
+  54   1         tmp=tmp&0x0f;
+C51 COMPILER V9.59.0.0   KEYSCAN                                                           04/23/2022 18:12:08 PAGE 2   
+
+  55   1         if(tmp!=0x0f)
+  56   1         {
+  57   2            delay(500);
+  58   2            if(tmp!=0x0f)
+  59   2            {
+  60   3               switch(tmp)
+  61   3               {
+  62   4                 case 0x07:key=9;break;
+  63   4               }
+  64   3            }
+  65   2         }
+  66   1         while(P1!=0xdf);
+  67   1         return key;
+  68   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    180    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

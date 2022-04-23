@@ -1,0 +1,139 @@
+C51 COMPILER V9.59.0.0   MIMA                                                              04/23/2022 18:12:08 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MIMA
+OBJECT MODULE PLACED IN .\Objects\mima.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE mima.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\mima
+                    -.lst) OBJECT(.\Objects\mima.obj)
+
+line level    source
+
+   1          #include "keyscan.h"
+   2          #include "mima.h"
+   3          
+   4          #define uchar unsigned char
+   5          #define uint  unsigned int
+   6          
+   7          sbit lsa=P2^2;
+   8          sbit lsb=P2^3;
+   9          sbit lsc=P2^4;
+  10          
+  11          uchar arr[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+  12          void mima(uchar k)
+  13          {
+  14   1            switch(k)
+  15   1            {
+  16   2               case 1:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  17   2               case 2:lsc=1;lsb=1;lsa=1;P0=arr[k];break;  
+  18   2               case 3:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  19   2               case 4:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  20   2               case 5:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  21   2               case 6:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  22   2               case 7:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  23   2               case 8:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  24   2               case 9:lsc=1;lsb=1;lsa=1;P0=arr[k];break;
+  25   2            }
+  26   1            switch(k)
+  27   1            {
+  28   2               case 1:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  29   2               case 2:lsc=1;lsb=1;lsa=0;P0=arr[k];break;  
+  30   2               case 3:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  31   2               case 4:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  32   2               case 5:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  33   2               case 6:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  34   2               case 7:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  35   2               case 8:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  36   2               case 9:lsc=1;lsb=1;lsa=0;P0=arr[k];break;
+  37   2            }
+  38   1            switch(k)
+  39   1            {
+  40   2               case 1:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  41   2               case 2:lsc=1;lsb=0;lsa=1;P0=arr[k];break;  
+  42   2               case 3:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  43   2               case 4:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  44   2               case 5:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  45   2               case 6:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  46   2               case 7:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  47   2               case 8:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  48   2               case 9:lsc=1;lsb=0;lsa=1;P0=arr[k];break;
+  49   2            }
+  50   1            switch(k)
+  51   1            {
+  52   2               case 1:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  53   2               case 2:lsc=1;lsb=0;lsa=0;P0=arr[k];break;  
+  54   2               case 3:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+C51 COMPILER V9.59.0.0   MIMA                                                              04/23/2022 18:12:08 PAGE 2   
+
+  55   2               case 4:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  56   2               case 5:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  57   2               case 6:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  58   2               case 7:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  59   2               case 8:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  60   2               case 9:lsc=1;lsb=0;lsa=0;P0=arr[k];break;
+  61   2            }
+  62   1            switch(k)
+  63   1            {
+  64   2               case 1:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  65   2               case 2:lsc=0;lsb=1;lsa=1;P0=arr[k];break;  
+  66   2               case 3:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  67   2               case 4:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  68   2               case 5:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  69   2               case 6:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  70   2               case 7:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  71   2               case 8:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  72   2               case 9:lsc=0;lsb=1;lsa=1;P0=arr[k];break;
+  73   2            }
+  74   1            switch(k)
+  75   1            {
+  76   2               case 1:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  77   2               case 2:lsc=0;lsb=1;lsa=0;P0=arr[k];break;  
+  78   2               case 3:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  79   2               case 4:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  80   2               case 5:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  81   2               case 6:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  82   2               case 7:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  83   2               case 8:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  84   2               case 9:lsc=0;lsb=1;lsa=0;P0=arr[k];break;
+  85   2            }
+  86   1            switch(k)
+  87   1            {
+  88   2               case 1:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  89   2               case 2:lsc=0;lsb=0;lsa=1;P0=arr[k];break;  
+  90   2               case 3:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  91   2               case 4:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  92   2               case 5:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  93   2               case 6:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  94   2               case 7:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  95   2               case 8:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  96   2               case 9:lsc=0;lsb=0;lsa=1;P0=arr[k];break;
+  97   2            }
+  98   1            switch(k)
+  99   1            {
+ 100   2               case 1:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 101   2               case 2:lsc=0;lsb=0;lsa=0;P0=arr[k];break;  
+ 102   2               case 3:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 103   2               case 4:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 104   2               case 5:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 105   2               case 6:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 106   2               case 7:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 107   2               case 8:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 108   2               case 9:lsc=0;lsb=0;lsa=0;P0=arr[k];break;
+ 109   2            }
+ 110   1            
+ 111   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    605    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.59.0.0   MIMA                                                              04/23/2022 18:12:08 PAGE 3   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

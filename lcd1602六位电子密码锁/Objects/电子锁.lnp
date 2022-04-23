@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\LCD1602.obj",
+".\Objects\test.obj" 
+TO ".\Objects\电子锁" 
+PRINT(".\Listings\电子锁.m51")
