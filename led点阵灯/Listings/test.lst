@@ -1,0 +1,101 @@
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 16:14:56 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TEST
+OBJECT MODULE PLACED IN .\Objects\test.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE test.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\test
+                    -.lst) OBJECT(.\Objects\test.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          
+   3          #define uchar unsigned char
+   4          #define uint  unsigned int
+   5          
+   6          sbit RCK=P3^5;
+   7          sbit SCK=P3^6;
+   8          sbit SER=P3^4;
+   9          
+  10          
+  11          uchar arr[]={0x3C,0x42,0xA9,0x85,0x85,0xA9,0x42,0x3C,
+  12                       0x3C,0x42,0xA5,0x89,0x89,0xA5,0x42,0x3C,};
+  13          
+  14          
+  15          
+  16          void delay(uint i)
+  17          {
+  18   1          uint k;
+  19   1          for(k=0;k<i;k++);
+  20   1      }
+  21          
+  22          void _74HC595Write(uchar date)
+  23          {
+  24   1          uchar i;
+  25   1          for(i=0;i<8;i++)
+  26   1          {
+  27   2             SER=date&(0x80>>i);
+  28   2             SCK=1;
+  29   2             SCK=0;
+  30   2          }
+  31   1          RCK=1;
+  32   1          RCK=0;
+  33   1      }
+  34          
+  35          void LED_Show(uchar l,uchar date1)
+  36          {
+  37   1          _74HC595Write(date1);
+  38   1          switch(l)
+  39   1          {
+  40   2             case 0:P0=0x7f;break;
+  41   2             case 1:P0=0xbf;break;
+  42   2             case 2:P0=0xdf;break;
+  43   2             case 3:P0=0xef;break;
+  44   2             case 4:P0=0xf7;break;
+  45   2             case 5:P0=0xfb;break;
+  46   2             case 6:P0=0xfd;break;
+  47   2             case 7:P0=0xfe;break;
+  48   2          }
+  49   1      }
+  50          
+  51          void main()
+  52          {
+  53   1          uchar i,count=0,offset=0;
+  54   1          RCK=0;
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 16:14:56 PAGE 2   
+
+  55   1          SCK=0;
+  56   1          while(1)
+  57   1          {
+  58   2              for(i=0;i<8;i++)
+  59   2              {
+  60   3                 LED_Show(i,arr[i+offset]);
+  61   3                 
+  62   3              }
+  63   2              
+  64   2              count++;
+  65   2              if(count>30)
+  66   2              {
+  67   3                  count=0;
+  68   3                  offset+=8;
+  69   3                  if(offset>9)
+  70   3                  {
+  71   4                      offset=0;
+  72   4                  }
+  73   3              }
+  74   2          }
+  75   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    218    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
