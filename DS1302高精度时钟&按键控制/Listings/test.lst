@@ -1,0 +1,417 @@
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TEST
+OBJECT MODULE PLACED IN .\Objects\test.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE test.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\test
+                    -.lst) OBJECT(.\Objects\test.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "lcd1602.h"
+   3          #include "ds1302.h"
+   4          
+   5          
+   6          sbit k1=P3^1;
+   7          sbit k2=P3^0;
+   8          sbit k3=P3^2;
+   9          
+  10          uchar DS1302_time[]={0,22,19,24,4,7,22};
+  11          uchar count = 0;
+  12          uchar miao,fen,shi,tian,yue,zhou,nian;
+  13          
+  14          void DS1302_Settime();//设置时间
+  15          void DS1302_readtime();//读时间
+  16          void keyscan1();
+  17          void keyscan2();
+  18          void keyscan3();
+  19          
+  20          
+  21          uchar miao;
+  22          uchar fen=0;
+  23          uchar shi=0;
+  24          uchar bcd1=0;
+  25          uchar bcd2=0;
+  26          uchar bcd3=0;
+  27          
+  28          void delay(unsigned int i)
+  29          {
+  30   1         unsigned int k;
+  31   1         for(k=0;k<i;k++);
+  32   1      }
+  33          void init()
+  34          {
+  35   1         LCD_Init();
+  36   1         LCD_showstring(1,4,"2022-04-22");
+  37   1         LCD_showstring(2,5,"00-00-00");
+  38   1      }
+  39          void main()
+  40          {
+  41   1         init();
+  42   1         DS1302_init();
+  43   1         DS1302_Settime();
+  44   1         while(1)
+  45   1         {
+  46   2            keyscan1();
+  47   2            keyscan2();
+  48   2            keyscan3();
+  49   2            if(count==0)
+  50   2            {
+  51   3               DS1302_readtime();
+  52   3               LCD_shownum(2,11,DS1302_time[0],2);//秒
+  53   3               LCD_shownum(2,8,DS1302_time[1],2);//分
+  54   3               LCD_shownum(2,5,DS1302_time[2],2);//时
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 2   
+
+  55   3               LCD_shownum(1,12,DS1302_time[3],2); //天
+  56   3               LCD_shownum(1,9,DS1302_time[4],2);//月
+  57   3               LCD_shownum(1,16,DS1302_time[5],1);//周
+  58   3               LCD_shownum(1,6,DS1302_time[6],2);//年
+  59   3            }
+  60   2         }
+  61   1      }
+  62          
+  63          
+  64          
+  65          void DS1302_Settime()
+  66          {
+  67   1          DS1302_WriteByte(0x8e,0x00);
+  68   1          DS1302_WriteByte(0x80,DS1302_time[0]/10*16+DS1302_time[0]%10);//秒
+  69   1          DS1302_WriteByte(0x82,DS1302_time[1]/10*16+DS1302_time[1]%10);//分
+  70   1          DS1302_WriteByte(0x84,DS1302_time[2]/10*16+DS1302_time[2]%10);//时
+  71   1          DS1302_WriteByte(0x86,DS1302_time[3]/10*16+DS1302_time[3]%10);//天
+  72   1          DS1302_WriteByte(0x88,DS1302_time[4]/10*16+DS1302_time[4]%10);//月
+  73   1          DS1302_WriteByte(0x8a,DS1302_time[5]/10*16+DS1302_time[5]%10);//周
+  74   1          DS1302_WriteByte(0x8c,DS1302_time[6]/10*16+DS1302_time[6]%10);//年
+  75   1          DS1302_WriteByte(0x8e,0x80);
+  76   1      }
+  77          
+  78          void DS1302_readtime()
+  79          {
+  80   1         unsigned char tmp;
+  81   1         tmp=DS1302_ReadByte(0x81);
+  82   1         DS1302_time[0]=tmp/16*10+tmp%16;//秒
+  83   1         
+  84   1         tmp=DS1302_ReadByte(0x83);
+  85   1         DS1302_time[1]=tmp/16*10+tmp%16;//分
+  86   1      
+  87   1         tmp=DS1302_ReadByte(0x85);
+  88   1         DS1302_time[2]=tmp/16*10+tmp%16;//时
+  89   1      
+  90   1         tmp=DS1302_ReadByte(0x87);
+  91   1         DS1302_time[3]=tmp/16*10+tmp%16;//天
+  92   1         
+  93   1         tmp=DS1302_ReadByte(0x89);
+  94   1         DS1302_time[4]=tmp/16*10+tmp%16;//月
+  95   1        
+  96   1         tmp=DS1302_ReadByte(0x8b);
+  97   1         DS1302_time[5]=tmp/16*10+tmp%16;//周
+  98   1      
+  99   1         tmp=DS1302_ReadByte(0x8d);
+ 100   1         DS1302_time[6]=tmp/16*10+tmp%16;//年
+ 101   1      }
+ 102          void keyscan1()
+ 103          {
+ 104   1         if(k1==0)
+ 105   1         {
+ 106   2            delay(5);
+ 107   2            if(k1==0)
+ 108   2            {
+ 109   3                count++;
+ 110   3                while(!k1);
+ 111   3                if(count==1)
+ 112   3                {
+ 113   4                    LCD_WriteCommand(0x80+0x40+11);
+ 114   4                    LCD_WriteCommand(0x0f);
+ 115   4                }
+ 116   3      
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 3   
+
+ 117   3                if(count==2)
+ 118   3                {
+ 119   4                    LCD_WriteCommand(0x80+0x40+8);
+ 120   4                    LCD_WriteCommand(0x0f);
+ 121   4                }
+ 122   3                if(count==3)
+ 123   3                {
+ 124   4                    LCD_WriteCommand(0x80+0x40+5);
+ 125   4                    LCD_WriteCommand(0x0f);
+ 126   4                }
+ 127   3                if(count==4)
+ 128   3                {
+ 129   4                    LCD_WriteCommand(0x80+15);
+ 130   4                    LCD_WriteCommand(0x0f);
+ 131   4                }
+ 132   3                if(count==5)
+ 133   3                {
+ 134   4                    LCD_WriteCommand(0x80+12);
+ 135   4                    LCD_WriteCommand(0x0f);
+ 136   4                }
+ 137   3                if(count==6)
+ 138   3                {
+ 139   4                    LCD_WriteCommand(0x80+9);
+ 140   4                    LCD_WriteCommand(0x0f);
+ 141   4                }
+ 142   3                if(count==7)
+ 143   3                {
+ 144   4                    LCD_WriteCommand(0x80+6);
+ 145   4                    LCD_WriteCommand(0x0f);
+ 146   4                }
+ 147   3                if(count==8)
+ 148   3                {
+ 149   4                    count=0;
+ 150   4                    LCD_WriteCommand(0x0c);
+ 151   4                    DS1302_Settime();
+ 152   4                }
+ 153   3            }
+ 154   2         }
+ 155   1      }
+ 156          void keyscan2()
+ 157          {
+ 158   1         if(k2==0)
+ 159   1         {
+ 160   2            if(count!=0)
+ 161   2           {
+ 162   3             if(count==1)
+ 163   3             {
+ 164   4                miao=DS1302_time[0];
+ 165   4                miao++;
+ 166   4                if(miao==60)
+ 167   4                {
+ 168   5                   miao=0;
+ 169   5                }
+ 170   4                while(!k2);
+ 171   4                DS1302_time[0]=miao;
+ 172   4                LCD_shownum(2,11,DS1302_time[0],2);
+ 173   4                LCD_WriteCommand(0x80+0x40+11);
+ 174   4             }
+ 175   3             if(count==2)
+ 176   3             {
+ 177   4                fen=DS1302_time[1];
+ 178   4                fen++;
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 4   
+
+ 179   4                if(fen==60)
+ 180   4                {
+ 181   5                   fen=0;
+ 182   5                }
+ 183   4                while(!k2);
+ 184   4                DS1302_time[1]=fen;
+ 185   4                LCD_shownum(2,8,DS1302_time[1],2);
+ 186   4                LCD_WriteCommand(0x80+0x40+8);   
+ 187   4             }
+ 188   3             if(count==3)
+ 189   3             {
+ 190   4                shi=DS1302_time[2];
+ 191   4                shi++;
+ 192   4                if(shi==24)
+ 193   4                {
+ 194   5                   shi=0;
+ 195   5                }
+ 196   4                while(!k2);
+ 197   4                DS1302_time[2]=shi;
+ 198   4                LCD_shownum(2,5,DS1302_time[2],2);
+ 199   4                LCD_WriteCommand(0x80+0x40+5);      
+ 200   4             }
+ 201   3             if(count==4)
+ 202   3             {
+ 203   4                zhou = DS1302_time[5];
+ 204   4                zhou++;
+ 205   4                if (zhou == 8)
+ 206   4                {
+ 207   5                  zhou = 0;
+ 208   5                }
+ 209   4                while (!k2);
+ 210   4                DS1302_time[5] = zhou;
+ 211   4                LCD_shownum(1, 16, DS1302_time[5], 1);
+ 212   4                LCD_WriteCommand(0x80+15);         
+ 213   4             }
+ 214   3             if(count==5)
+ 215   3             {
+ 216   4                 tian = DS1302_time[3];
+ 217   4                 tian++;
+ 218   4                 while (!k2);
+ 219   4                 DS1302_time[3] = tian;
+ 220   4                 LCD_shownum(1, 12, DS1302_time[3], 2);
+ 221   4                 LCD_WriteCommand(0x80+12);       
+ 222   4             }
+ 223   3             if(count==6)
+ 224   3             {
+ 225   4                yue = DS1302_time[4];
+ 226   4                yue++;
+ 227   4                if (yue == 13)
+ 228   4                {
+ 229   5                  yue = 0;
+ 230   5                }
+ 231   4                while (!k2);
+ 232   4                DS1302_time[4] = yue;
+ 233   4                LCD_shownum(1, 9, DS1302_time[4], 2);
+ 234   4                LCD_WriteCommand(0x80+9);
+ 235   4             }
+ 236   3             if(count==7)
+ 237   3             {
+ 238   4                nian=DS1302_time[6];
+ 239   4                nian++;
+ 240   4                if(nian==99)
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 5   
+
+ 241   4                {
+ 242   5                   nian=0;
+ 243   5                }
+ 244   4                while(!k2);
+ 245   4                DS1302_time[6]=nian;
+ 246   4                LCD_shownum(1,6,DS1302_time[6],2);
+ 247   4                LCD_WriteCommand(0x80+6);          
+ 248   4             }
+ 249   3           }
+ 250   2         }
+ 251   1      
+ 252   1      }
+ 253          
+ 254          void keyscan3()
+ 255          {
+ 256   1         if(k3==0)
+ 257   1         {
+ 258   2            if(count!=0)
+ 259   2           {
+ 260   3             if(count==1)
+ 261   3             {
+ 262   4                miao=DS1302_time[0];
+ 263   4                
+ 264   4                if(miao!=0)
+ 265   4                {
+ 266   5                   miao--;
+ 267   5                }
+ 268   4                else
+ 269   4                {
+ 270   5                   miao=59;
+ 271   5                }
+ 272   4                while(!k3);
+ 273   4                DS1302_time[0]=miao;
+ 274   4                LCD_shownum(2,11,DS1302_time[0],2);
+ 275   4                LCD_WriteCommand(0x80+0x40+11);
+ 276   4             }
+ 277   3             if(count==2)
+ 278   3             {
+ 279   4                fen=DS1302_time[1];
+ 280   4            
+ 281   4                if(fen!=0)
+ 282   4                {
+ 283   5                   fen--;
+ 284   5                }
+ 285   4                else
+ 286   4                {
+ 287   5                   fen=59;
+ 288   5                }
+ 289   4                while(!k3);
+ 290   4                DS1302_time[1]=fen;
+ 291   4                LCD_shownum(2,8,DS1302_time[1],2);
+ 292   4                LCD_WriteCommand(0x80+0x40+8);   
+ 293   4             }
+ 294   3             if(count==3)
+ 295   3             {
+ 296   4                shi=DS1302_time[2];
+ 297   4                
+ 298   4                if(shi!=0)
+ 299   4                {
+ 300   5                   shi--;
+ 301   5                }
+ 302   4                else
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 6   
+
+ 303   4                {
+ 304   5                   shi=23;
+ 305   5                }
+ 306   4                while(!k3);
+ 307   4                DS1302_time[2]=shi;
+ 308   4                LCD_shownum(2,5,DS1302_time[2],2);
+ 309   4                LCD_WriteCommand(0x80+0x40+5);      
+ 310   4             }
+ 311   3             if(count==4)
+ 312   3             {
+ 313   4                zhou = DS1302_time[5];
+ 314   4                
+ 315   4                if (zhou != 0)
+ 316   4                {
+ 317   5                  zhou--;
+ 318   5                }
+ 319   4                else
+ 320   4                {
+ 321   5                  zhou=7;
+ 322   5                }
+ 323   4                while (!k3);
+ 324   4                DS1302_time[5] = zhou;
+ 325   4                LCD_shownum(1, 16, DS1302_time[5], 1);
+ 326   4                LCD_WriteCommand(0x80+15);         
+ 327   4             }
+ 328   3             if(count==5)
+ 329   3             {
+ 330   4                 tian = DS1302_time[3];
+ 331   4                 if(tian!=0)
+ 332   4                 {
+ 333   5                    tian--;
+ 334   5                 }
+ 335   4                 else
+ 336   4                 {
+ 337   5                    tian=30;
+ 338   5                 }
+ 339   4                 while (!k3);
+ 340   4                 DS1302_time[3] = tian;
+ 341   4                 LCD_shownum(1, 12, DS1302_time[3], 2);
+ 342   4                 LCD_WriteCommand(0x80+12);       
+ 343   4             }
+ 344   3             if(count==6)
+ 345   3             {
+ 346   4                yue = DS1302_time[4];
+ 347   4                
+ 348   4                if (yue != 0)
+ 349   4                {
+ 350   5                  yue--;
+ 351   5                }
+ 352   4                else
+ 353   4                {
+ 354   5                  yue=12;
+ 355   5                }
+ 356   4                while (!k3);
+ 357   4                DS1302_time[4] = yue;
+ 358   4                LCD_shownum(1, 9, DS1302_time[4], 2);
+ 359   4                LCD_WriteCommand(0x80+9);
+ 360   4             }
+ 361   3             if(count==7)
+ 362   3             {
+ 363   4                nian=DS1302_time[6];
+ 364   4                
+C51 COMPILER V9.59.0.0   TEST                                                              04/24/2022 20:55:32 PAGE 7   
+
+ 365   4                if(nian!=0)
+ 366   4                {
+ 367   5                   nian--;
+ 368   5                }
+ 369   4                else
+ 370   4                {
+ 371   5                   nian=99;
+ 372   5                }
+ 373   4                while(!k3);
+ 374   4                DS1302_time[6]=nian;
+ 375   4                LCD_shownum(1,6,DS1302_time[6],2);
+ 376   4                LCD_WriteCommand(0x80+6);          
+ 377   4             }
+ 378   3           }
+ 379   2         }
+ 380   1      
+ 381   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1317    ----
+   CONSTANT SIZE    =     20    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     18    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
