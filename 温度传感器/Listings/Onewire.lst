@@ -1,0 +1,96 @@
+C51 COMPILER V9.59.0.0   ONEWIRE                                                           04/30/2022 14:57:57 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ONEWIRE
+OBJECT MODULE PLACED IN .\Objects\Onewire.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Onewire.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\O
+                    -newire.lst) OBJECT(.\Objects\Onewire.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #include "Onewire.h"
+   4          
+   5          sbit One_DQ=P3^7;
+   6          
+   7          
+   8          
+   9          
+  10          
+  11          unsigned char onewire_Init()
+  12          {
+  13   1         unsigned char i;
+  14   1         unsigned char num;
+  15   1         One_DQ=1;
+  16   1         One_DQ=0;
+  17   1         i = 247;while(--i);
+  18   1         One_DQ=1;
+  19   1         i= 32;while(--i);
+  20   1         num=One_DQ;
+  21   1         i = 247;while(--i);
+  22   1         return num;
+  23   1      }
+  24          
+  25          void onewire_sendbit(unsigned char b)
+  26          {
+  27   1         unsigned char i;
+  28   1         One_DQ=0;
+  29   1         i = 4;while(--i);
+  30   1         One_DQ=b;
+  31   1         i = 24;while(--i);
+  32   1         One_DQ=1;
+  33   1      }
+  34          
+  35          unsigned char onewire_rb()
+  36          {
+  37   1         unsigned char i;
+  38   1         unsigned char b;
+  39   1         One_DQ=0;
+  40   1         i = 2;while(--i);
+  41   1         One_DQ=1;
+  42   1         i = 2;while(--i);
+  43   1         b=One_DQ;
+  44   1         i = 24;while(--i);
+  45   1         return b;
+  46   1      }
+  47          
+  48          void onewire_sendbyte(unsigned char byte)
+  49          {
+  50   1          unsigned char i;
+  51   1          for(i=0;i<8;i++)
+  52   1          {
+  53   2             onewire_sendbit(byte&(0x01<<i));
+  54   2          }
+C51 COMPILER V9.59.0.0   ONEWIRE                                                           04/30/2022 14:57:57 PAGE 2   
+
+  55   1      }
+  56          
+  57          unsigned char onewire_rbyte()
+  58          {
+  59   1         unsigned char i;
+  60   1         unsigned char byte=0x00;
+  61   1         for(i=0;i<8;i++)
+  62   1         {
+  63   2            if(One_DQ==1)
+  64   2            {
+  65   3               byte|=(0x01<<i);
+  66   3            }
+  67   2         }
+  68   1         return byte;
+  69   1      }
+  70          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    135    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

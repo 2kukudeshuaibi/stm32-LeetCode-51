@@ -1,0 +1,184 @@
+C51 COMPILER V9.59.0.0   LCD1602                                                           04/30/2022 12:25:20 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LCD1602
+OBJECT MODULE PLACED IN .\Objects\lcd1602.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\DS1302高精度时钟\lcd1602.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\lcd1602.lst) OBJECT(.\Objects\lcd1602.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "lcd1602.h"
+   3          #include <string.h>
+   4          #include <math.h>
+   5          sbit LCD_EN=P2^7;
+   6          sbit LCD_RS=P2^6;
+   7          sbit LCD_RW=P2^5;
+   8          #define LCD_DatePort P0
+   9          
+  10          void LCD_delay1ms()
+  11          {
+  12   1         unsigned char i,j;
+  13   1         i=2;
+  14   1         j=239;
+  15   1         do
+  16   1         {
+  17   2             while(--j);
+  18   2           
+  19   2         }while(--i);
+  20   1      }
+  21          
+  22          //写指令
+  23          void LCD_WriteCommand(unsigned char command)
+  24          {
+  25   1         LCD_RW=0;
+  26   1         LCD_RS=0;
+  27   1         LCD_DatePort=command;
+  28   1         LCD_EN=1;
+  29   1         LCD_delay1ms();
+  30   1         LCD_EN=0;
+  31   1         LCD_delay1ms();
+  32   1      }
+  33          //写数据
+  34          void LCD_Writedate(unsigned char date)
+  35          {
+  36   1         LCD_RW=0;
+  37   1         LCD_RS=1;
+  38   1         LCD_DatePort=date;
+  39   1         LCD_EN=1;
+  40   1         LCD_delay1ms();
+  41   1         LCD_EN=0;
+  42   1         LCD_delay1ms();
+  43   1      }
+  44          //初始化
+  45          void LCD_Init()
+  46          {
+  47   1         LCD_WriteCommand(0x38);
+  48   1         LCD_WriteCommand(0x0c);
+  49   1         LCD_WriteCommand(0x06);
+  50   1         LCD_WriteCommand(0x01);
+  51   1      }
+  52          
+  53          //设置显示位置
+  54          void setac(unsigned char l,unsigned char c)
+C51 COMPILER V9.59.0.0   LCD1602                                                           04/30/2022 12:25:20 PAGE 2   
+
+  55          {
+  56   1        if(l==1)
+  57   1         {
+  58   2             LCD_WriteCommand(0x80+(c-1));
+  59   2         }
+  60   1         else
+  61   1         {
+  62   2             LCD_WriteCommand(0x80+(c-1)+0x40);
+  63   2         }
+  64   1      }
+  65          
+  66          //显示一个字符
+  67          void LCD_Showchar(unsigned char l,unsigned char c,unsigned char n)
+  68          {
+  69   1         setac(l,c);
+  70   1         LCD_Writedate(n);
+  71   1      }
+  72          //显示字符串
+  73          void LCD_showstring(unsigned char l,unsigned char c,unsigned char* str)
+  74          {
+  75   1         unsigned char i;
+  76   1         unsigned char len=strlen(str);
+  77   1         setac(l,c);
+  78   1         for(i=0;i<len;i++)
+  79   1         {
+  80   2            LCD_Writedate(*(str+i));
+  81   2         }
+  82   1      }
+  83          //开次方
+  84          int LCD_POW(int x,int y)
+  85          {
+  86   1         int i=0;
+  87   1         int tmp = 1;
+  88   1         for(i=0;i<y;i++)
+  89   1         {
+  90   2            tmp=tmp*x;
+  91   2         }
+  92   1         return tmp;
+  93   1      }
+  94          //显示无符号数字
+  95          void LCD_shownum(unsigned char l,unsigned char c,unsigned int number,unsigned char len)
+  96          {
+  97   1         unsigned int i,tmp;
+  98   1         setac(l,c);
+  99   1         for(i=len;i>0;i--)
+ 100   1         {
+ 101   2            tmp=number/LCD_POW(10,i-1)%10;
+ 102   2            LCD_Writedate(0x30+tmp);
+ 103   2         }
+ 104   1      }
+ 105          //显示有符号数
+ 106          void LCD_showsnum(unsigned char l,unsigned char c,int number,unsigned char len)
+ 107          {
+ 108   1         unsigned int i,tmp;
+ 109   1         setac(l,c);
+ 110   1         if(number>0)
+ 111   1         {
+ 112   2            LCD_Writedate('+');
+ 113   2            tmp=number;
+ 114   2            
+ 115   2         }
+ 116   1         else
+C51 COMPILER V9.59.0.0   LCD1602                                                           04/30/2022 12:25:20 PAGE 3   
+
+ 117   1         {
+ 118   2            LCD_Writedate('-');
+ 119   2            tmp=-number;
+ 120   2         }
+ 121   1         for(i=len;i>0;i--)
+ 122   1         {
+ 123   2            
+ 124   2            LCD_Writedate(0x30+tmp/LCD_POW(10,i-1)%10);
+ 125   2         }
+ 126   1      }
+ 127          
+ 128          //显示16进制
+ 129          void LCD_showhexnum(unsigned char l,unsigned char c,unsigned int num,unsigned char len)
+ 130          {
+ 131   1         unsigned int i,tmp;
+ 132   1         setac(l,c);
+ 133   1         for(i=len;i>0;i--)
+ 134   1         {
+ 135   2            tmp=num/LCD_POW(16,i-1)%16;
+ 136   2            if(tmp<10)
+ 137   2            {
+ 138   3               LCD_Writedate(0x30+tmp);
+ 139   3            }
+ 140   2            else
+ 141   2            {
+ 142   3               LCD_Writedate(0x37+tmp);
+ 143   3            }
+ 144   2         }
+ 145   1      }
+ 146          //显示二进制
+ 147          void LCD_showbinnum(unsigned char l,unsigned char c,unsigned int num,unsigned char len)
+ 148          {
+ 149   1         unsigned int i,tmp;
+ 150   1         setac(l,c);
+ 151   1         for(i=len;i>0;i--)
+ 152   1         {
+ 153   2            tmp=num/LCD_POW(2,i-1)%2;
+ 154   2            LCD_Writedate(0x30+tmp);
+ 155   2         }
+ 156   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    509    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      33
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
