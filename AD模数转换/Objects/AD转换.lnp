@@ -1,0 +1,5 @@
+".\Objects\main.obj",
+".\Objects\LCD1602.obj",
+".\Objects\XPT2046.obj" 
+TO ".\Objects\AD×ª»»" 
+PRINT(".\Listings\AD×ª»».m51") RAMSIZE(256) 
