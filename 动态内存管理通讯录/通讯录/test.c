@@ -69,6 +69,7 @@ int main()
 			Printcontact(&con);
 			break;
 		case Exit:
+			Savecontact(&con);
 			Destorycontact(&con);
 			printf("ÍË³ö³É¹¦\n");
 			break;

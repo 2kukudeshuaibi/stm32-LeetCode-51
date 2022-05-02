@@ -66,3 +66,13 @@ void Sortcontact(Contact* pc);
 
 //退出程序
 void Destorycontact(Contact* pc);
+
+//保持通讯录
+void Savecontact(Contact* pc);
+
+
+//加载文件内容到通讯录
+void Loadcontact(Contact* pc);
+
+//检测增容
+void check_size(Contact* pc);

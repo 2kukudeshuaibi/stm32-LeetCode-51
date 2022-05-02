@@ -54,6 +54,35 @@ void my_qsort(void* base, int len, int wit, int(*camp)(const void*, const void*)
 
 //初始化 动态版本
 
+
+//加载文件
+void Loadcontact(Contact* pc)
+{
+
+	FILE* pf = fopen("contact.dat", "r");
+	if (pf == NULL)
+	{
+		perror(fopen);
+		return;
+	}
+	//读文件
+	people tmp = { 0 };
+	while (fread(&tmp, sizeof(people), 1, pf))
+	{
+		check_size(pc);
+		pc->date[pc->sz] = tmp;
+		pc->sz++;
+	}
+
+	//关闭文件
+	fclose(pf);
+	pf = NULL;
+}
+
+
+
+
+
 void Initcontact(Contact* pc)
 {
 	pc->date = (people*)malloc(DEFAULT_SZ*sizeof(people));
@@ -66,6 +95,9 @@ void Initcontact(Contact* pc)
 	pc->sz = 0;
 	pc->capacity = DEFAULT_SZ;
 	memset(pc->date, 0, sizeof(pc->date));
+
+	//加载文件
+	Loadcontact(pc);
 }
 
 
@@ -92,15 +124,11 @@ void Initcontact(Contact* pc)
 //	printf("增加成功\n");
 //}
 
-
-
-//增加联系人 动态版本
-
-void Addcontact(Contact* pc)
+void check_size(Contact* pc)
 {
 	if (pc->sz == pc->capacity)
 	{
-		people* ptr = (people*)realloc(pc->date, (pc->capacity+INC_sz) * sizeof(people));
+		people* ptr = (people*)realloc(pc->date, (pc->capacity + INC_sz) * sizeof(people));
 		if (ptr != NULL)
 		{
 			pc->date = ptr;
@@ -115,6 +143,13 @@ void Addcontact(Contact* pc)
 		}
 
 	}
+}
+
+//增加联系人 动态版本
+
+void Addcontact(Contact* pc)
+{
+	check_size(pc);
 	printf("请输入名字:");
 	scanf("%s", pc->date[pc->sz].name);
 	printf("请输入年龄:");
@@ -249,4 +284,24 @@ void Destorycontact(Contact* pc)
 	pc->date = NULL;
 	pc->capacity = 0;
 	pc->sz = 0;
+}
+
+//保存通讯录到文件
+void Savecontact(Contact* pc)
+{
+	int i = 0;
+	FILE* pf = fopen("contact.dat", "w");
+	if (pf == NULL)
+	{
+		perror(fopen);
+		return;
+	}
+	//写文件
+	for (i = 0; i < pc->sz; i++)
+	{
+		fwrite(pc->date + i, sizeof(people), 1, pf);
+	}
+	//关闭文件
+	fclose(pf);
+	pf = NULL;
 }
