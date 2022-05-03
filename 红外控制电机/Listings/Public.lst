@@ -1,0 +1,32 @@
+C51 COMPILER V9.59.0.0   PUBLIC                                                            05/03/2022 23:41:07 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PUBLIC
+OBJECT MODULE PLACED IN .\Objects\Public.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Public.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Pu
+                    -blic.lst) OBJECT(.\Objects\Public.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "Public.h"
+   3          
+   4          
+   5          void delayus(uint i)
+   6          {
+   7   1          while(i--);
+   8   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     11    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
