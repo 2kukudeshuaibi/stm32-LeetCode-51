@@ -1,8 +1,8 @@
 ﻿  contact.c
-D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(63,15): warning C4047: “函数”:“const char *”与“FILE *(__cdecl *)(const char *,const char *)”的间接级别不同
-D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(63,10): warning C4024: “perror”: 形参和实参 1 的类型不同
-D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(214,25): warning C4090: “函数”: 不同的“const”限定符
-D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(252,36): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
-D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(294,15): warning C4047: “函数”:“const char *”与“FILE *(__cdecl *)(const char *,const char *)”的间接级别不同
-D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(294,10): warning C4024: “perror”: 形参和实参 1 的类型不同
+D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(65,15): warning C4047: “函数”:“const char *”与“FILE *(__cdecl *)(const char *,const char *)”的间接级别不同
+D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(65,10): warning C4024: “perror”: 形参和实参 1 的类型不同
+D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(216,25): warning C4090: “函数”: 不同的“const”限定符
+D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(254,36): warning C4244: “return”: 从“__int64”转换到“int”，可能丢失数据
+D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(296,15): warning C4047: “函数”:“const char *”与“FILE *(__cdecl *)(const char *,const char *)”的间接级别不同
+D:\代码仓库\enlightenment\动态内存管理通讯录\通讯录\contact.c(296,10): warning C4024: “perror”: 形参和实参 1 的类型不同
   通讯录.vcxproj -> D:\代码仓库\enlightenment\动态内存管理通讯录\x64\Debug\通讯录.exe

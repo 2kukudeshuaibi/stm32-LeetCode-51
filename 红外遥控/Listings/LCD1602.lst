@@ -1,0 +1,122 @@
+C51 COMPILER V9.59.0.0   LCD1602                                                           05/03/2022 20:48:13 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LCD1602
+OBJECT MODULE PLACED IN .\Objects\LCD1602.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE LCD1602.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\L
+                    -CD1602.lst) OBJECT(.\Objects\LCD1602.obj)
+
+line level    source
+
+   1          #include "LCD1602.h"
+   2          #include <intrins.h>
+   3          
+   4          
+   5          sbit LCD_EN=P2^7;
+   6          sbit LCD_RS=P2^6;
+   7          sbit LCD_WR=P2^5;
+   8          
+   9          void Delay10us()                //@11.0592MHz
+  10          {
+  11   1              unsigned char i;
+  12   1      
+  13   1              _nop_();
+  14   1              i = 25;
+  15   1              while (--i);
+  16   1      }
+  17          
+  18          
+  19          void LCD_zhiling(uchar command)
+  20          {
+  21   1          LCD_RS=0;
+  22   1          LCD_WR=0;
+  23   1          P0=command;
+  24   1          LCD_EN=1;
+  25   1          Delay10us();
+  26   1          LCD_EN=0;
+  27   1      }
+  28          
+  29          void LCD_shuju(uchar date)
+  30          {
+  31   1          LCD_RS=1;
+  32   1          LCD_WR=0;
+  33   1          P0=date;
+  34   1          LCD_EN=1;
+  35   1          Delay10us();
+  36   1          LCD_EN=0;
+  37   1      }
+  38          
+  39          void LCD_Init()
+  40          {
+  41   1          LCD_zhiling(0x38);
+  42   1          LCD_zhiling(0x0c);
+  43   1          LCD_zhiling(0x06);
+  44   1          LCD_zhiling(0x80);
+  45   1      }
+  46          
+  47          void setshow(uchar h,uchar l)
+  48          {
+  49   1          if(h==1)
+  50   1          {
+  51   2              LCD_zhiling(0x80+(l-1));
+  52   2          }
+  53   1          else
+  54   1          {
+C51 COMPILER V9.59.0.0   LCD1602                                                           05/03/2022 20:48:13 PAGE 2   
+
+  55   2              LCD_zhiling(0x80+0x40+(l-1));
+  56   2          }
+  57   1      }
+  58          
+  59          void showchar(uchar h,uchar l,char a)
+  60          {
+  61   1          setshow(h,l);
+  62   1          LCD_shuju(a);
+  63   1      }
+  64          
+  65          void showstr(uchar h,uchar l,char* p)
+  66          {
+  67   1          setshow(h,l);
+  68   1          while((*p)!=('\0'))
+  69   1          {
+  70   2             LCD_shuju(*p);
+  71   2             p++;
+  72   2          }
+  73   1      }
+  74          
+  75          uint LCD_Pow(uint num,uint count)
+  76          {
+  77   1          uint i;
+  78   1          uint tmp=1;
+  79   1          for(i=0;i<count;i++)
+  80   1          {
+  81   2              tmp=tmp*num;
+  82   2          }
+  83   1          return tmp;
+  84   1      }
+  85          
+  86          void shownum(uchar h,uchar l,uint number,uchar len)
+  87          {
+  88   1          uchar i;
+  89   1          uint tmp;
+  90   1          setshow(h,l);
+  91   1          for(i=len;i>0;i--)
+  92   1          {
+  93   2              tmp=number/LCD_Pow(10,i-1)%10;
+  94   2              LCD_shuju(0x30+tmp);
+  95   2          }
+  96   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    204    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
