@@ -1,0 +1,6 @@
+".\Objects\main.obj",
+".\Objects\keyscan.obj",
+".\Objects\Public.obj",
+".\Objects\LCD1602.obj" 
+TO ".\Objects\°ËÂ·ÇÀ´ðÆ÷" 
+PRINT(".\Listings\°ËÂ·ÇÀ´ðÆ÷.m51") RAMSIZE(256) 
