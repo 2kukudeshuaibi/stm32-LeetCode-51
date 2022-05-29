@@ -1,0 +1,4 @@
+﻿  list.c
+D:\代码仓库\enlightenment\双向链表\双向链表\list.c(23,26): warning C4028: 形参 1 与声明不同
+D:\代码仓库\enlightenment\双向链表\双向链表\list.c(25,1): warning C4090: “初始化”: 不同的“const”限定符
+  双向链表.vcxproj -> D:\代码仓库\enlightenment\双向链表\x64\Debug\双向链表.exe
