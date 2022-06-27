@@ -1,0 +1,8 @@
+﻿  tree.c
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(46,5): error C2065: “aaa”: 未声明的标识符
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(48,3): error C2065: “scasc”: 未声明的标识符
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(48,3): error C2146: 语法错误: 缺少“;”(在标识符“asc”的前面)
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(49,3): error C2065: “asc”: 未声明的标识符
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(49,3): error C2146: 语法错误: 缺少“;”(在标识符“asc”的前面)
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(51,2): error C2065: “asc”: 未声明的标识符
+D:\代码仓库\enlightenment\二叉树的创建\二叉树的创建\tree.c(51,2): error C2146: 语法错误: 缺少“;”(在标识符“scanf”的前面)

@@ -65,6 +65,7 @@ int TreeLeafsize(BT* root)
 }
 
 
+
 void Leveorder(BT* root)
 {
 	queue q;
@@ -94,6 +95,20 @@ void Leveorder(BT* root)
 
 	Queuedestory(&q);
 }
+
+
+void destory(BT* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	destory(root->left);
+	destory(root->right);
+	free(root);
+	root = NULL;
+}
+
 
 int main()
 {
@@ -133,6 +148,8 @@ int main()
 	/*int size = TreeLeafsize(A);
 	printf("%d ", size);*/
 	//Postorder(A);
+
+	//destory(A);
 
 	Leveorder(A);
 	return 0;
