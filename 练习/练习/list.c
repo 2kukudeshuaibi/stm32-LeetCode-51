@@ -35,12 +35,52 @@ void slisttest()
 	slistprint(a);
 }
 
+void sttest()
+{
+	st p;
+	StackInit(&p);
+	StackPush(&p, 1);
+	StackPush(&p, 2);
+	StackPush(&p, 3);
+	StackPush(&p, 4);
+	StackPush(&p, 5);
+
+	printf("%d ", StackTop(&p));
+	StackPop(&p);
+	printf("\n");
+
+
+	printf("%d ", StackTop(&p));
+}
+
+
+void Queuetest()
+{
+	Queue tmp;
+	QueueInit(&tmp);
+	QueuePush(&tmp, 1);
+	QueuePush(&tmp, 2);
+	QueuePush(&tmp, 3);
+	QueuePush(&tmp, 4);
+	QueuePush(&tmp, 5);
+	QueuePush(&tmp, 6);
+
+	printqueue(&tmp);
+
+
+	QueuePop(&tmp);
+
+	printqueue(&tmp);
+
+	printf("%d ", QueueBack(&tmp));
+
+}
 
 int main()
 {
 	//seqlisttest();//À≥–Ú±Ì≤‚ ‘
-
-	slisttest();
-
+	//slisttest();//¡¥±Ì≤‚ ‘
+	//sttest();//’ª≤‚ ‘
+	//Queuetest();//∂”¡–≤‚ ‘
 	return 0;
 }

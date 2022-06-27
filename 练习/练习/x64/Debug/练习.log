@@ -1,4 +1,3 @@
 ﻿  list.c
-  test.c
-  正在生成代码...
+D:\代码仓库\enlightenment\练习\练习\list.c(68,2): warning C4013: “printqueue”未定义；假设外部返回 int
   练习.vcxproj -> D:\代码仓库\enlightenment\练习\x64\Debug\练习.exe

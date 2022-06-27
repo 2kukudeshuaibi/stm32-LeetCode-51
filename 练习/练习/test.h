@@ -86,3 +86,63 @@ void listinsert(sxlist* pos, list date);
 void listErase(sxlist* pos);
 
 
+
+/*
+栈
+功能：入栈 出栈
+      取栈顶元素 获取元素个数
+	  判空
+*/
+
+typedef int STdate;
+struct stack
+{
+	STdate* a;
+	int top;
+	int capacity;
+}typedef st;
+
+
+void StackInit(st* ps);
+void StackPush(st* ps, STdate date);
+void StackPop(st* ps);
+STdate StackTop(st* ps);
+int StackSize(st* ps);
+int StackEmpty(st* ps);
+void StackDestory(st* ps);
+
+/*
+队列
+功能：入队 出队
+	  判空
+*/
+
+typedef int QDataType;
+
+typedef struct QListNode
+{
+	struct QListNode* Next;
+	QDataType date;
+}QNode;
+// 队列的结构
+typedef struct Queue
+{
+	QNode* head;
+	QNode* tail;
+}Queue;
+// 初始化队列
+void QueueInit(Queue* q);
+// 队尾入队列
+void QueuePush(Queue* q, QDataType data);
+// 队头出队列
+void QueuePop(Queue* q);
+// 获取队列头部元素
+QDataType QueueFront(Queue* q);
+// 获取队列队尾元素
+QDataType QueueBack(Queue* q);
+// 获取队列中有效元素个数
+int QueueSize(Queue* q);
+// 检测队列是否为空，如果为空返回非零结果，如果非空返回0 
+int QueueEmpty(Queue* q);
+// 销毁队列
+void QueueDestroy(Queue* q);

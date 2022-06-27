@@ -388,5 +388,149 @@ void listErase(sxlist* pos)
 }
 
 
+/*
+栈
+功能：入栈 出栈
+	  取栈顶元素 获取元素个数
+	  判空
+*/
+
+void StackInit(st* ps)
+{
+	ps->a = (STdate*)malloc(sizeof(STdate)*4);
+	ps->top = 0;
+	ps->capacity = 4;
+}
+void StackPush(st* ps, STdate date)
+{
+	if (ps->top == ps->capacity)
+	{
+		STdate* new = (STdate*)realloc(ps->a, sizeof(STdate) * 2);
+		ps->capacity += 2;
+	}
+	ps->a[ps->top] = date;
+	ps->top++;
+}
+void StackPop(st* ps)
+{
+	ps->top--;
+}
+STdate StackTop(st* ps)
+{
+	return ps->a[ps->top - 1];
+}
+int StackSize(st* ps)
+{
+	return ps->top;
+}
+int StackEmpty(st* ps)
+{
+	return ps->top == 0;
+}
+void StackDestory(st* ps)
+{
+	free(ps->a);
+	ps->a = NULL;
+	ps->top = ps->capacity = 0;
+}
+
+
+
+
+/*
+队列
+功能：入队 出队
+	  判空
+*/
+
+
+// 初始化队列
+void QueueInit(Queue* q)
+{
+	q->head = NULL;
+	q->tail = NULL;
+}
+// 队尾入队列
+void QueuePush(Queue* q, QDataType data)
+{
+	QNode* new = (QNode*)malloc(sizeof(QNode));
+	new->Next = NULL;
+	new->date = data;
+	if (q->head == NULL)
+	{
+		q->head = new;
+		q->tail = new;
+	}
+	else
+	{
+		q->tail->Next = new;
+		q->tail = new;
+	}
+}
+// 队头出队列
+void QueuePop(Queue* q)
+{
+
+	QNode* tmp = q->head;
+	q->head = q->head->Next;
+	free(tmp);
+	if (q->head == NULL)
+	{
+		q->tail = q->head;
+	}
+	tmp = NULL;
+}
+// 获取队列头部元素
+QDataType QueueFront(Queue* q)
+{
+	return q->head->date;
+}
+// 获取队列队尾元素
+QDataType QueueBack(Queue* q)
+{
+	return q->tail->date;
+}
+// 获取队列中有效元素个数
+int QueueSize(Queue* q)
+{
+	int size = 0;
+	QNode* cur = q->head;
+	while (cur != NULL)
+	{
+		size++;
+		cur = cur->Next;
+	}
+}
+// 检测队列是否为空，如果为空返回非零结果，如果非空返回0 
+int QueueEmpty(Queue* q)
+{
+	return q->head == NULL;
+}
+// 销毁队列
+void QueueDestroy(Queue* q)
+{
+	QNode* cur = q->head;
+	while (cur != NULL)
+	{
+		QNode* next = cur->Next;
+		free(cur);
+		cur = next;
+	}
+	q->head = NULL;
+	q->tail = NULL;
+}
+
+
+void printqueue(Queue* q)
+{
+	QNode* cur = q->head;
+	while (cur != NULL)
+	{
+		printf("%d ", cur->date);
+		cur = cur->Next;
+	}
+	printf("\n");
+
+}
 
 
