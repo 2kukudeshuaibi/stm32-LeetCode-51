@@ -76,18 +76,17 @@ void Swap(int* p1, int* p2)
 	*p1 = *p2;
 	*p2 = tmp;
 }
-
 void AdJustDwon(int* a, int n, int root)
 {
 	int parent = root;
 	int chiled = parent * 2 + 1;
 	while (chiled < n)
 	{
-		if ((chiled + 1 < n) && a[chiled + 1] > a[chiled])
+		if ((chiled + 1 < n) && a[chiled + 1] < a[chiled])
 		{
 			chiled += 1;
 		}
-		if (a[chiled] > a[parent])
+		if (a[chiled] < a[parent])
 		{
 			Swap(&a[chiled], &a[parent]);
 			parent = chiled;
@@ -99,7 +98,6 @@ void AdJustDwon(int* a, int n, int root)
 		}
 	}
 }
-
 void HeapSort(int* a, int n)
 {
 	int i = (n - 1 - 1) / 2;
@@ -116,12 +114,99 @@ void HeapSort(int* a, int n)
 		end--;
 	}
 }
-//堆的创建
+
+
+
+
+
+void bubblesort(int* a, int n)//冒泡排序
+{
+	int i = 0;
+	int j = 0;
+	for (i = 0; i < n - 1; i++)
+	{
+		for (j = 0; j < n - 1 - i; j++)
+		{
+			if (a[j] > a[j + 1])
+			{
+				Swap(&a[j], &a[j + 1]);
+			}
+		}
+	}
+}
+
+
+void Selectsort(int* a, int n)//选择排序
+{
+	int begin = 0;
+	int end = n - 1;
+	while (begin < end)
+	{
+		int min = begin;
+		int max = begin;
+		for (int i = begin; i <= end; i++)
+		{
+			if (a[i] < a[min])
+			{
+				min = i;
+			}
+			if (a[i] > a[max])
+			{
+				max = i;
+			}
+		}
+
+		Swap(&a[begin], &a[max]);
+		Swap(&a[min], &a[end]);
+		begin++;
+		end--;
+	}
+}
+
+
+
+void Quicksort(int* a, int left, int right)//快速排序
+{
+	if (right <= left)
+	{
+		return;
+	}
+	int begin = left;
+	int end = right;
+	int pivot = begin;
+	int key = a[begin];
+	while (begin < end)
+	{
+		//从右找小
+		while (begin < end && a[end] >= key)
+		{
+			end--;
+		}
+		a[pivot] = a[end];//找到了 把小的放进坑
+		pivot = end;//刷新坑
+
+		//从左找大
+		while (begin < end && a[begin] <= key)
+		{
+			begin++;
+		}
+		a[pivot] = a[begin];//找到了 把大的放进坑
+		pivot = begin;//刷新坑
+	}
+	pivot = begin;
+	a[pivot] = key;
+	Quicksort(a,left, pivot-1);
+	Quicksort(a,pivot + 1, right);
+}
+
+
+
 
 void TestHeapsort()
 {
-	int arr[] = { 1,2,3,4,5,6,7,8,9 };
-	HeapSort(arr, sizeof(arr) / sizeof(int));
+	int arr[] = { 3,5,1,2,8,4,9,7,6,0 };
+	int arr1[] = { 0,1,2,3,4,5,6,7,8,9 };
+	Quicksort(arr,0, sizeof(arr) / sizeof(int)-1);
 	PrintInsort(arr, sizeof(arr) / sizeof(int));
 }
 
