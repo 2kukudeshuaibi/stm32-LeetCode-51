@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include "stack.h"
 
 void PrintInsort(int* arr, int n)//´òÓ¡Êý×é
 {
@@ -386,23 +386,121 @@ void Merge(int* a, int n)
 }
 
 
+void QuickSortNonR(int* a, int n)
+{
+	ST st;
+	StackInit(&st);
+	StackPush(&st, n - 1);
+	StackPush(&st, 0);
+
+	while (!StackEmpty(&st))
+	{
+		int left = StackTop(&st);
+		StackPop(&st);
+
+		int right = StackTop(&st);
+		StackPop(&st);
+
+
+		int index = Partsort1(a, left, right);
+
+
+		if (index + 1 < right)
+		{
+			StackPush(&st, right);
+			StackPush(&st, index + 1);
+		}
+
+
+		if (left < index - 1)
+		{
+			StackPush(&st, index - 1);
+			StackPush(&st, left);
+		}
+		
+
+	}
+
+
+
+	StackDestory(&st);
+}
+
+
+
+void MergeNonR(int* a, int n)
+{
+	int gap = 1;
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	while (gap < n)
+	{
+		for (int i = 0; i < n; i += 2 * gap)
+		{
+			int begin1 = i;
+			int end1 = i + gap-1;
+			int begin2 = i + gap;
+			int end2 = i + 2 * gap - 1;
+
+			int index = i;
+			while ((begin1 <= end1) && (begin2 <= end2))
+			{
+				if (a[begin1] < a[begin2])
+				{
+					tmp[index] = a[begin1];
+					index++;
+					begin1++;
+				}
+				else
+				{
+					tmp[index] = a[begin2];
+					index++;
+					begin2++;
+				}
+			}
+			while (begin1 <= end1)
+			{
+				tmp[index] = a[begin1];
+				index++;
+				begin1++;
+			}
+			while (begin2 <= end2)
+			{
+				tmp[index] = a[begin2];
+				index++;
+				begin2++;
+			}
+		}
+		int j = 0;
+		for (j = 0; j < n; j++)
+		{
+			a[j] = tmp[j];
+		}
+		gap *= 2;
+	}
+
+	
+	free(tmp);
+	tmp = NULL;
+}
+
+
 void TestHeapsort()
 {
 	
 	int arr[] = { 3,5,1,2,8,4,9,7,6,0 };
 	int arr1[] = { 0,1,2,3,4,5,6,7,8,9 };
 	//Quicksort(arr,0, sizeof(arr) / sizeof(int)-1);
-	Merge(arr, sizeof(arr) / sizeof(int));
+	MergeNonR(arr, sizeof(arr) / sizeof(int));
 	PrintInsort(arr, sizeof(arr) / sizeof(int));
 }
 
 int main()
 {
-	TestHeapsort();
+	//TestHeapsort();
 	
 	
+	printf("%d ", sizeof(unsigned long long));
 	
-	int i = 0;
 	
 	return 0;
 }
