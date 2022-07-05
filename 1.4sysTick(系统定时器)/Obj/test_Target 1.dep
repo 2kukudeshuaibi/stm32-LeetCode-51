@@ -1,0 +1,37 @@
+Dependencies for Project 'test', Target 'Target 1': (DO NOT MODIFY !)
+CompilerVersion: 5060528::V5.06 update 5 (build 528)::ARMCC
+F (.\User\main.c)(0x62C06128)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\User -I .\Library\CMSIS -I .\Library\STM32F10x_StdPeriph_Driver\inc -I .\public-I.\RTE\_Target_1-ID:\Keil_v5\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="527" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER.STM32F10X_HD-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+I (.\public\system.h)(0x62BF3C86)
+I (.\User\stm32f10x.h)(0x4D783CB4)
+I (.\Library\CMSIS\core_cm3.h)(0x4D523B58)
+F (.\User\stm32f10x_it.c)(0x4D99A59E)()
+F (.\Library\CMSIS\startup_stm32f10x_hd.s)(0x4D783CDE)()
+F (.\Library\CMSIS\core_cm3.c)(0x4C0C587E)()
+F (.\Library\CMSIS\system_stm32f10x.c)(0x4D783CB0)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\misc.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_bkp.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_cec.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_crc.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_dac.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_dbgmcu.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_exti.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_fsmc.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c)(0x4D79EEC6)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_rtc.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_spi.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c)(0x4D783BB4)()
+F (.\Library\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.c)(0x4D783BB4)()
+F (.\public\system.c)(0x62BF39AD)()
+F (.\public\system.h)(0x62BF3C86)()
+F (.\public\systick.c)(0x62C0610B)()
+F (.\public\systick.h)(0x62C0610B)()
