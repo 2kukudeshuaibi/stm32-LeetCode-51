@@ -82,11 +82,11 @@ void AdJustDwon(int* a, int n, int root)
 	int chiled = parent * 2 + 1;
 	while (chiled < n)
 	{
-		if ((chiled + 1 < n) && a[chiled + 1] < a[chiled])
+		if ((chiled + 1 < n) && a[chiled + 1] > a[chiled])
 		{
 			chiled += 1;
 		}
-		if (a[chiled] < a[parent])
+		if (a[chiled] > a[parent])
 		{
 			Swap(&a[chiled], &a[parent]);
 			parent = chiled;
@@ -484,22 +484,55 @@ void MergeNonR(int* a, int n)
 }
 
 
+void Countsort(int* a, int n)
+{
+	int i = 0;
+	int min = a[0];
+	int max = a[0];
+	for (i = 0; i < n; i++)
+	{
+		if (a[i] > max)
+		{
+			max = a[i];
+		}
+		if (a[i] < min)
+		{
+			min = a[i];
+		}
+	}
+	int range = max - min + 1;
+	int* count = (int*)malloc(sizeof(int) * range);
+	memset(count, 0, sizeof(int) * range);
+	for (i = 0; i < n; i++)
+	{
+		count[a[i] - min]++;
+	}
+	int j = 0;
+	for (i = 0; i < range; i++)
+	{
+		while (count[i]--)
+		{
+			a[j] = j + min;
+			j++;
+		}
+	}
+
+}
+
 void TestHeapsort()
 {
 	
 	int arr[] = { 3,5,1,2,8,4,9,7,6,0 };
-	int arr1[] = { 0,1,2,3,4,5,6,7,8,9 };
-	//Quicksort(arr,0, sizeof(arr) / sizeof(int)-1);
-	MergeNonR(arr, sizeof(arr) / sizeof(int));
+	Countsort(arr,sizeof(arr)/sizeof(int));
 	PrintInsort(arr, sizeof(arr) / sizeof(int));
 }
 
 int main()
 {
-	//TestHeapsort();
+	TestHeapsort();
 	
 	
-	printf("%d ", sizeof(unsigned long long));
+	
 	
 	
 	return 0;
