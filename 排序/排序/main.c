@@ -529,9 +529,9 @@ void TestHeapsort()
 
 int main()
 {
-	TestHeapsort();
+	//TestHeapsort();
 	
-	
+	printf("hellod worf\n");
 	
 	
 	
