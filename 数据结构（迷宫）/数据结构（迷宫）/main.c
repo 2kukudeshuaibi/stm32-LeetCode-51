@@ -2,14 +2,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "stack.h"
 
 
-typedef struct Position
-{
-	int row;
-	int col;
-}PT;
-
+ST path;
 
 void PrintMaze(int** maze, int n, int m)
 {
@@ -37,12 +33,33 @@ int IsPass(int** maze, int n, int m, PT pos)
 	}
 }
 
+
+void PrintPath(ST* ps)
+{
+	ST rpath;
+	StackInit(&rpath);
+	while (!StackEmpty(&path))
+	{
+		StackPush(&rpath, StackTop(&path));
+		StackPop(&path);
+	}
+
+	while (!StackEmpty(&rpath))
+	{
+		PT tmp = StackTop(&rpath);
+		printf("[%d,%d]\n", tmp.row, tmp.col);
+		StackPop(&rpath);
+	}
+}
+
+
 int Get_Maze_Path(int** maze, int n, int m, PT cur)
 {
+	StackPush(&path,cur);
 
 	if (cur.row == n - 1 && cur.col == m - 1)
 	{
-		printf("[%d,%d]\n", cur.row, cur.col);
+		
 		return 1;
 	}
 
@@ -54,7 +71,7 @@ int Get_Maze_Path(int** maze, int n, int m, PT cur)
 	next.row -= 1;
 	if (IsPass(maze, n, m, next))
 	{
-		printf("[%d,%d]\n", cur.row, cur.col);
+		
 		if (Get_Maze_Path(maze, n, m, next))
 		{
 			return 1;
@@ -67,7 +84,7 @@ int Get_Maze_Path(int** maze, int n, int m, PT cur)
 	next.row += 1;
 	if (IsPass(maze, n, m, next))
 	{
-		printf("[%d,%d]\n", cur.row, cur.col);
+		
 		if (Get_Maze_Path(maze, n, m, next))
 		{
 			return 1;
@@ -80,7 +97,7 @@ int Get_Maze_Path(int** maze, int n, int m, PT cur)
 	next.col -= 1;
 	if (IsPass(maze, n, m, next))
 	{
-		printf("[%d,%d]\n", cur.row, cur.col);
+		
 		if (Get_Maze_Path(maze, n, m, next))
 		{
 			return 1;
@@ -93,12 +110,14 @@ int Get_Maze_Path(int** maze, int n, int m, PT cur)
 	next.col += 1;
 	if (IsPass(maze, n, m, next))
 	{
-		printf("[%d,%d]\n", cur.row, cur.col);
+		
 		if (Get_Maze_Path(maze, n, m, next))
 		{
 			return 1;
 		}
 	}
+
+	StackPop(&path);
 
 	return 0;
 }
@@ -106,6 +125,7 @@ int Get_Maze_Path(int** maze, int n, int m, PT cur)
 int main()
 {
 	int n = 0, m = 0;
+	StackInit(&path);
 	scanf("%d %d", &n, &m);
 	int** maze = (int**)malloc(sizeof(int*) * n);
 	int i = 0, j = 0;
@@ -130,6 +150,7 @@ int main()
 	PT entry = { 0,0 };
 	Get_Maze_Path(maze, n, m, entry);
 
+	PrintPath(&path);
 
 	for (i = 0; i < n; i++)
 	{
