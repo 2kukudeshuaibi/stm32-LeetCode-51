@@ -1,4 +1,4 @@
 ﻿  源.cpp
-D:\代码仓库\enlightenment\计算数据\计算数据\源.cpp(5,16): warning C4305: “初始化”: 从“int”到“char”截断
-D:\代码仓库\enlightenment\计算数据\计算数据\源.cpp(5,11): warning C4309: “初始化”: 截断常量值
+D:\代码仓库\enlightenment\计算数据\计算数据\源.cpp(7,30): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
+D:\代码仓库\enlightenment\计算数据\计算数据\源.cpp(12,20): warning C4305: “初始化”: 从“double”到“float”截断
   计算数据.vcxproj -> D:\代码仓库\enlightenment\计算数据\x64\Debug\计算数据.exe
