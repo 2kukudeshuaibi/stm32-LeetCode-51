@@ -1,32 +1,39 @@
 #include <stdio.h>
-
-
-int fun(int x[],int e,int* sum)
+#include <string.h>
+#include <ctype.h>
+int fun(char* p)
 {
-	int tmp = 0;
-	int count = 0;
+	int flag = 1;
 	int i = 0;
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < strlen(p)-1; i++)
 	{
-		if (x[i] % e == 0)
+		char tmp1 = tolower(p[i]);
+		char tmp2 = tolower(p[i+1]);
+		if ((tmp1+1) != (tmp2))
 		{
-			count++;
-		}
-		else
-		{
-			tmp += x[i];
+			flag = 0;
+			break;
 		}
 	}
-	*sum = tmp;
-	return count;
+
+	return flag;
 }
 
 int main()
 {
+	char arr[] = "ABCdef";
+	int a = fun(arr);
+	if (a == 1)
+	{
+		printf("是连续字符串\n");
+	}
+	else
+	{
+		printf("不是连续字符串\n");
+	}
+
+
 	
-	int x[10] = { 1,7,8,6,10,15,11,13,29,31 };
-	int sum = 0;
-	int a=fun(x, 3, &sum);
-	printf("%d %d ", a, sum);
+
 	return 0;
 }
