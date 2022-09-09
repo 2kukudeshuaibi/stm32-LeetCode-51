@@ -1,3 +1,2 @@
 ﻿  源.cpp
-D:\代码仓库\enlightenment\计算数据\计算数据\源.cpp(27,13): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
   计算数据.vcxproj -> D:\代码仓库\enlightenment\计算数据\x64\Debug\计算数据.exe
