@@ -4,16 +4,24 @@
 #include <math.h>
 
 
-int FinfMAX(int num, ...)
+
+int fun(int n)
 {
-	va_list pt;
+	static int tmp = 0;
+	tmp = tmp + n % 10;
 	
+	if (n > 9)
+	{
+		tmp *= 10;
+		fun(n / 10);
+	}
+	return tmp;
 }
 
 
 
 int main()
 {
-	
+	printf("%d", fun(1234));
 	return 0;
 }
